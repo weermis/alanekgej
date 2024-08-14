@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alanek</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            color: black;
+            transition: background-color 0.5s, color 0.5s;
+        }
+        #container {
+            text-align: center;
+            width: 100%;
+        }
+        input {
+            padding: 10px;
+            font-size: 20px;
+            border: 2px solid black;
+            border-radius: 5px;
+            outline: none;
+        }
+        #message {
+            display: none;
+            font-size: 50px;
+            font-weight: bold;
+            text-shadow: 2px 2px #000;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <input type="text" id="alanekInput" placeholder="Wpisz 'alanek'...">
+        <div id="message">ALANEK TO GEJ</div>
+    </div>
+
+    <script>
+        const inputField = document.getElementById('alanekInput');
+        const messageDiv = document.getElementById('message');
+        let colorChangeInterval;
+
+        inputField.addEventListener('input', function() {
+            if (this.value.toLowerCase() === 'alanek') {
+                this.value = ''; // Czyści pole input
+                messageDiv.style.display = 'block';
+                inputField.style.display = 'none'; // Ukrywa input
+                startColorfulBackground();
+            }
+        });
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function startColorfulBackground() {
+            document.body.style.backgroundColor = getRandomColor();
+            document.documentElement.style.backgroundColor = document.body.style.backgroundColor;
+            messageDiv.style.color = getRandomColor();
+
+            colorChangeInterval = setInterval(() => {
+                const newColor = getRandomColor();
+                document.body.style.backgroundColor = newColor;
+                document.documentElement.style.backgroundColor = newColor;
+                messageDiv.style.color = getRandomColor();
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
